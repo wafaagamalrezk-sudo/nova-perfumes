@@ -14,14 +14,22 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 20px;
 }
 
 body {
     font-family: Arial, Tahoma, sans-serif;
     background: #0d0d0d;
     color: #fff;
+    overflow-x: hidden;
 }
 
+:root {
+    --gold: #d6b56d;
+    --dark: #0d0d0d;
+}
+
+/* HEADER */
 header {
     padding: 22px 8%;
     display: flex;
@@ -30,11 +38,15 @@ header {
     flex-wrap: wrap;
     gap: 18px;
     border-bottom: 1px solid #29251c;
-    background: #0d0d0d;
+    background: rgba(13,13,13,.96);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(12px);
 }
 
 .logo {
-    color: #d6b56d;
+    color: var(--gold);
     font-size: 30px;
     font-weight: bold;
     letter-spacing: 4px;
@@ -52,19 +64,21 @@ nav a {
     text-decoration: none;
     margin: 0 12px;
     font-size: 14px;
+    transition: color .3s;
 }
 
 nav a:hover {
-    color: #d6b56d;
+    color: var(--gold);
 }
 
+/* HERO */
 .hero {
     min-height: 580px;
     display: flex;
     align-items: center;
     justify-content: space-around;
     gap: 35px;
-    padding: 60px 8%;
+    padding: 80px 8%;
     background:
         radial-gradient(ellipse at 75% 45%,
         #383023 0%, #17140f 38%, #0d0d0d 75%);
@@ -72,12 +86,14 @@ nav a:hover {
 
 .hero-text {
     max-width: 500px;
+    animation: slideFromRight 1s ease both;
 }
 
 .eyebrow {
-    color: #d6b56d;
+    color: var(--gold);
     letter-spacing: 4px;
     font-size: 13px;
+    display: inline-block;
 }
 
 .hero h1 {
@@ -88,7 +104,7 @@ nav a:hover {
 
 .hero h2 {
     font-size: 26px;
-    color: #d6b56d;
+    color: var(--gold);
     margin-bottom: 15px;
 }
 
@@ -100,26 +116,29 @@ nav a:hover {
 
 .btn {
     display: inline-block;
-    background: #d6b56d;
+    background: var(--gold);
     color: #111;
     padding: 13px 28px;
     text-decoration: none;
-    border: 1px solid #d6b56d;
+    border: 1px solid var(--gold);
     cursor: pointer;
     font-size: 15px;
     font-weight: bold;
+    font-family: inherit;
     transition: .3s;
 }
 
 .btn:hover {
     background: transparent;
-    color: #d6b56d;
+    color: var(--gold);
+    transform: translateY(-3px);
 }
 
+/* HERO PERFUME BOTTLE */
 .bottle {
     width: 210px;
     height: 300px;
-    border: 2px solid #d6b56d;
+    border: 2px solid var(--gold);
     border-radius: 35px 35px 20px 20px;
     background: linear-gradient(110deg, #403522, #17130d, #5b4828);
     display: flex;
@@ -129,6 +148,8 @@ nav a:hover {
     box-shadow: 0 0 65px #b28a3b30;
     position: relative;
     flex-shrink: 0;
+    animation: bottleEntrance 1.2s ease both,
+               floating 4s ease-in-out 1.2s infinite;
 }
 
 .bottle::before {
@@ -162,6 +183,7 @@ nav a:hover {
     margin-top: 8px;
 }
 
+/* SECTIONS */
 section {
     padding: 75px 8%;
 }
@@ -172,7 +194,7 @@ section {
 }
 
 .section-heading h2 {
-    color: #d6b56d;
+    color: var(--gold);
     font-size: 32px;
     margin-bottom: 10px;
 }
@@ -181,6 +203,7 @@ section {
     color: #aaa;
 }
 
+/* PRODUCTS */
 .products {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -192,12 +215,13 @@ section {
     border: 1px solid #343027;
     padding: 25px 20px;
     text-align: center;
-    transition: .3s;
+    transition: border-color .4s, transform .4s, box-shadow .4s;
 }
 
 .product:hover {
-    border-color: #d6b56d;
-    transform: translateY(-6px);
+    border-color: var(--gold);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px #d6b56d12;
 }
 
 .product-art {
@@ -207,6 +231,7 @@ section {
     justify-content: center;
     background: radial-gradient(circle, #3a3020, #191919 70%);
     margin-bottom: 20px;
+    overflow: hidden;
 }
 
 .mini-bottle {
@@ -220,6 +245,11 @@ section {
     align-items: center;
     justify-content: center;
     box-shadow: 0 0 25px #d6b56d20;
+    transition: transform .5s;
+}
+
+.product:hover .mini-bottle {
+    transform: scale(1.08) rotate(-3deg);
 }
 
 .mini-bottle::before {
@@ -228,7 +258,7 @@ section {
     top: -22px;
     width: 35px;
     height: 22px;
-    background: #d6b56d;
+    background: var(--gold);
     border-radius: 3px 3px 0 0;
 }
 
@@ -247,10 +277,11 @@ section {
     color: #aaa;
     font-size: 14px;
     margin-bottom: 12px;
+    line-height: 1.8;
 }
 
 .price {
-    color: #d6b56d;
+    color: var(--gold);
     font-size: 20px;
     margin-bottom: 20px;
 }
@@ -259,6 +290,7 @@ section {
     width: 100%;
 }
 
+/* ABOUT */
 .about {
     text-align: center;
     background: #15140f;
@@ -271,18 +303,26 @@ section {
     line-height: 2.2;
 }
 
+/* CONTACT */
 .banner {
     text-align: center;
     border: 1px solid #514326;
     padding: 45px 20px;
+    background: radial-gradient(ellipse, #211c12, #0d0d0d);
 }
 
 .banner h2 {
     font-size: 30px;
-    color: #d6b56d;
+    color: var(--gold);
     margin-bottom: 15px;
 }
 
+.banner p {
+    color: #aaa;
+    margin-bottom: 22px;
+}
+
+/* FOOTER */
 footer {
     padding: 30px 15px;
     text-align: center;
@@ -292,9 +332,100 @@ footer {
 }
 
 footer strong {
-    color: #d6b56d;
+    color: var(--gold);
 }
 
+/* WHATSAPP FLOATING BUTTON */
+.whatsapp-button {
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    background: #25D366;
+    color: #fff;
+    padding: 13px 19px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 5px 25px #0008;
+    transition: transform .3s, background .3s;
+    animation: whatsappEntrance .8s ease 1.5s both;
+}
+
+.whatsapp-button:hover {
+    background: #1eaa52;
+    transform: translateY(-4px);
+    color: white;
+}
+
+.whatsapp-icon {
+    font-size: 23px;
+}
+
+/* SCROLL ANIMATIONS */
+.js .reveal {
+    opacity: 0;
+    transform: translateY(45px);
+    transition: opacity .8s ease, transform .8s ease;
+}
+
+.js .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.js .product:nth-child(2) {
+    transition-delay: .15s;
+}
+
+.js .product:nth-child(3) {
+    transition-delay: .3s;
+}
+
+/* KEYFRAMES */
+@keyframes slideFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes bottleEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(.85);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes floating {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -12px; }
+}
+
+@keyframes whatsappEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* MOBILE */
 @media (max-width: 650px) {
     header {
         justify-content: center;
@@ -323,8 +454,37 @@ footer strong {
     section {
         padding: 55px 6%;
     }
+
+    .whatsapp-button {
+        right: 14px;
+        bottom: 14px;
+        padding: 12px 16px;
+    }
+}
+
+/* RESPECT REDUCED MOTION SETTINGS */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+
+    .js .reveal {
+        opacity: 1;
+        transform: none;
+    }
 }
 </style>
+
+<script>
+/* Enable scroll animations only when JavaScript is available */
+document.documentElement.classList.add('js');
+</script>
 </head>
 
 <body>
@@ -366,54 +526,57 @@ footer strong {
     </div>
 
     <section id="products">
-        <div class="section-heading">
+        <div class="section-heading reveal">
             <h2>اختار عطرك</h2>
             <p>اكتشف مجموعة نوفا المميزة</p>
         </div>
 
         <div class="products">
 
-            <article class="product">
+            <article class="product reveal">
                 <div class="product-art">
                     <div class="mini-bottle"><span>N</span></div>
                 </div>
                 <h3>NOVA OUD</h3>
                 <p>العود الشرقي بلمسة فاخرة</p>
                 <div class="price">يُحدد السعر</div>
-                <button class="btn"
-                    onclick="order('NOVA OUD')">اطلب الآن</button>
+                <button class="btn" onclick="order('NOVA OUD')">
+                    اطلب الآن
+                </button>
             </article>
 
-            <article class="product">
+            <article class="product reveal">
                 <div class="product-art">
                     <div class="mini-bottle"><span>N</span></div>
                 </div>
                 <h3>NOVA ROSE</h3>
                 <p>رائحة الورد بنعومة وأناقة</p>
                 <div class="price">يُحدد السعر</div>
-                <button class="btn"
-                    onclick="order('NOVA ROSE')">اطلب الآن</button>
+                <button class="btn" onclick="order('NOVA ROSE')">
+                    اطلب الآن
+                </button>
             </article>
 
-            <article class="product">
+            <article class="product reveal">
                 <div class="product-art">
                     <div class="mini-bottle"><span>N</span></div>
                 </div>
                 <h3>NOVA NOIR</h3>
                 <p>رائحة عميقة لشخصية مختلفة</p>
                 <div class="price">يُحدد السعر</div>
-                <button class="btn"
-                    onclick="order('NOVA NOIR')">اطلب الآن</button>
+                <button class="btn" onclick="order('NOVA NOIR')">
+                    اطلب الآن
+                </button>
             </article>
 
         </div>
     </section>
 
     <section class="about" id="about">
-        <div class="section-heading">
+        <div class="section-heading reveal">
             <h2>حكاية NOVA</h2>
         </div>
-        <p>
+        <p class="reveal">
             نوفا هي فكرة عن التميز والتعبير عن الذات.
             صممنا تجربة عطرية لعشاق الروائح الراقية،
             لأن عطرك هو أول انطباع وآخر ذكرى.
@@ -421,11 +584,9 @@ footer strong {
     </section>
 
     <section id="contact">
-        <div class="banner">
+        <div class="banner reveal">
             <h2>خلي عطرك يتكلم عنك</h2>
-            <p style="color:#aaa; margin-bottom:22px">
-                اكتشف عطرك المفضل من NOVA
-            </p>
+            <p>اكتشف عطرك المفضل من NOVA</p>
             <a class="btn" href="#products">تسوق الآن</a>
         </div>
     </section>
@@ -437,12 +598,57 @@ footer strong {
     <p>© 2026 NOVA. جميع الحقوق محفوظة.</p>
 </footer>
 
+<!-- WhatsApp floating button -->
+<a
+    class="whatsapp-button"
+    href="https://wa.me/201222471980?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%20NOVA%20Perfumes%D8%8C%20%D8%B9%D8%A7%D9%8A%D8%B2%D8%A9%20%D8%A3%D8%B9%D8%B1%D9%81%20%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84%20%D8%A7%D9%84%D8%B9%D8%B7%D9%88%D8%B1."
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="تواصلي مع NOVA عبر واتساب"
+>
+    <span class="whatsapp-icon">☏</span>
+    تواصل معنا عبر واتساب
+</a>
+
 <script>
+/* WhatsApp ordering */
+const whatsappNumber = "201222471980";
+
 function order(product) {
-    alert(
-        "أنت اخترت " + product +
-        "\nلإتمام الطلب، أضف رقم واتساب المتجر في الكود."
-    );
+    const message =
+        "مرحبًا NOVA Perfumes 🌟\n" +
+        "عايزة أطلب عطر " + product + ".\n" +
+        "ممكن أعرف السعر والتفاصيل؟";
+
+    const url =
+        "https://wa.me/" + whatsappNumber +
+        "?text=" + encodeURIComponent(message);
+
+    window.open(url, "_blank", "noopener,noreferrer");
+}
+
+/* Reveal elements gradually as you scroll */
+const revealElements = document.querySelectorAll(".reveal");
+
+if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.12
+    });
+
+    revealElements.forEach((element) => {
+        observer.observe(element);
+    });
+} else {
+    revealElements.forEach((element) => {
+        element.classList.add("visible");
+    });
 }
 </script>
 
